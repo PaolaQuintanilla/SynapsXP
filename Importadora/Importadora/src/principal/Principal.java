@@ -6,6 +6,9 @@ public class Principal {
 
     
     public static void main(String[] args) {
+        //*******************************************************************************************************//
+        //      Hacemos uso de la libreria javax.swing.UIManager para darle estilo a nuestra aplicación
+        //*******************************************************************************************************//
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -22,6 +25,9 @@ public class Principal {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(MarcoPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //***********************************************************//
+        //      Instanciamos la clase Login y la hacemos visible
+        //***********************************************************//
         Login Inicio=new Login();
         Inicio.setVisible(true);
         

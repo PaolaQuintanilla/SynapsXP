@@ -2,17 +2,13 @@ package Vista;
 
 import Modelo.ConectorBD;
 import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.io.File;
-import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import javax.imageio.ImageIO;
 import javax.swing.Action;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -22,28 +18,29 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class RegistrarCliente extends JPanel implements Action{
+public class RegistrarProveedor extends JPanel implements Action{
     //*****************************************************//
     //          Declaramos los atributos
     //*****************************************************//
     private JFrame jfMarco;
-    private JPanel jpPanel;
+    private JPanel jpLamina;
     private JLabel lblTitulo;
     private JLabel lblNombre;
     private JLabel lblCI;
-    private JLabel lblDireccion;
+    private JLabel lblPais;
+    private JLabel lblCuenta;
     private JLabel lblTelefono;
-    private JLabel lblCelular;
     private JLabel lblCorreo;
+    
     private JTextField txtNombre;
     private JTextField txtCI;
-    private JTextField txtDireccion;
-    private JTextField txtTelefono;
-    private JTextField txtCelular;   
+    private JTextField txtPais;
+    private JTextField txtCuenta;
+    private JTextField txtTelefono;   
     private JTextField txtCorreo;
+    
     private JButton btnRegistrar;
     private JButton btnCancelar;
-    private Image imagenFondo;
     @Override
     public Object getValue(String string) {
         return null;
@@ -62,36 +59,33 @@ public class RegistrarCliente extends JPanel implements Action{
         jfMarco.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         jfMarco.setLocationRelativeTo(null);
         jfMarco.setVisible(true);
-        //***********************************************//
-        //           Insertamos un icono al marco
-        //***********************************************//
         ImageIcon icono=new ImageIcon("img/iconoCAT.jpg");
         Image img=icono.getImage();
         jfMarco.setIconImage(img);
         //*******************************************************//
         //      Creamos un panel que nos servirá como contenedor
         //*******************************************************//
-        jpPanel=new JPanel();
+        jpLamina=new JPanel();
         //**************************************//
         //     Anulamos el Layout por defecto
         //**************************************//
-        jpPanel.setLayout(null);
+        jpLamina.setLayout(null);
         //*******************************************************//
         //     Instanciamos los componentes
         //*******************************************************//
-        lblTitulo=new JLabel("Registro de clientes"); 
+        lblTitulo=new JLabel("Registro de Proveedores"); 
         lblNombre=new JLabel("Nombre:");       
         lblCI=new JLabel("CI/NIT:");      
-        lblDireccion=new JLabel("Dirección:");     
-        lblTelefono=new JLabel("Teléfono:");       
-        lblCelular=new JLabel("Celular:");      
+        lblPais=new JLabel("Pais:"); 
+        lblCuenta=new JLabel("Nro. de cuenta:");
+        lblTelefono=new JLabel("Teléfono:");            
         lblCorreo=new JLabel("Correo:");
         
         txtNombre=new JTextField(20);
         txtCI=new JTextField(20);
-        txtDireccion=new JTextField(20);
+        txtPais=new JTextField(20);
+        txtCuenta=new JTextField(20);
         txtTelefono=new JTextField(20);
-        txtCelular=new JTextField(20);
         txtCorreo=new JTextField(20);
         
         btnCancelar=new JButton("Cancelar");
@@ -103,42 +97,42 @@ public class RegistrarCliente extends JPanel implements Action{
         //*******************************************************//
         //     Estalecemos la posición de los componentes
         //*******************************************************//
-        lblTitulo.setBounds(200,20,150,20);
+        lblTitulo.setBounds(200,20,150,30);
         lblNombre.setBounds(120,60,150,30);
         lblCI.setBounds(120,90,150,30);
-        lblDireccion.setBounds(120,120,150,30);
-        lblTelefono.setBounds(120,150,150,30);
-        lblCelular.setBounds(120,180,150,30);
-        lblCorreo.setBounds(120, 210, 150, 30);
+        lblPais.setBounds(120,120,150,30);
+        lblCuenta.setBounds(120,150,150,30);
+        lblTelefono.setBounds(120,180,150,30);
+        lblCorreo.setBounds(120,210,150,30);
         
         txtNombre.setBounds(220,60,150,30);
         txtCI.setBounds(220,90,150,30);
-        txtDireccion.setBounds(220,120,150,30);
-        txtTelefono.setBounds(220,150,150,30);
-        txtCelular.setBounds(220,180,150,30);
-        txtCorreo.setBounds(220, 210, 150, 30);
+        txtPais.setBounds(220,120,150,30);
+        txtCuenta.setBounds(220,150,150,30);
+        txtTelefono.setBounds(220,180,150,30);
+        txtCorreo.setBounds(220,210,150,30);
         
         btnCancelar.setBounds(130,270,100,30);
         btnRegistrar.setBounds(250,270,100,30);
         //*******************************************************//
         //      Insertamos los componentes al panel
         //*******************************************************//
-        jpPanel.add(lblTitulo);
-        jpPanel.add(lblNombre);
-        jpPanel.add(lblCI);
-        jpPanel.add(lblDireccion);
-        jpPanel.add(lblTelefono);
-        jpPanel.add(lblCelular);
-        jpPanel.add(lblCorreo);
+        jpLamina.add(lblTitulo);
+        jpLamina.add(lblNombre);
+        jpLamina.add(lblCI);
+        jpLamina.add(lblPais);
+        jpLamina.add(lblCuenta);
+        jpLamina.add(lblTelefono);
+        jpLamina.add(lblCorreo);
         
-        jpPanel.add(txtNombre);
-        jpPanel.add(txtCI);
-        jpPanel.add(txtDireccion);
-        jpPanel.add(txtTelefono);
-        jpPanel.add(txtCelular);
-        jpPanel.add(txtCorreo);
+        jpLamina.add(txtNombre);
+        jpLamina.add(txtCI);
+        jpLamina.add(txtPais);
+        jpLamina.add(txtCuenta);
+        jpLamina.add(txtTelefono);
+        jpLamina.add(txtCorreo);
         
-        jpPanel.add(btnCancelar);    
+        jpLamina.add(btnCancelar);    
         //**********************************************************************//
         //      Evento que nos permite cerrar la ventana de registro cliente
         //**********************************************************************//
@@ -156,8 +150,8 @@ public class RegistrarCliente extends JPanel implements Action{
             //****************************************************************************************//
             //      Condicional que nos permite saber si los campos de texto se encuentran vacíos
             //****************************************************************************************//
-            if(!txtNombre.getText().isEmpty()&&!txtCI.getText().isEmpty()&&!txtDireccion.getText().isEmpty()){
-                if(!validarNombre(txtNombre)&&!validarDireccion(txtDireccion)&&validarCorreo(txtCorreo)){
+            if(!txtNombre.getText().isEmpty()&&!txtCI.getText().isEmpty()&&!txtPais.getText().isEmpty()&&!txtCuenta.getText().isEmpty()){
+                if(!validarNombre(txtNombre)&&!validarDireccion(txtPais)&&!validarDireccion(txtCuenta)&&validarCorreo(txtCorreo)){
                    //*************************************************************//
                    //       Llamamos al metodo quitar espacios
                    //*************************************************************//
@@ -167,15 +161,15 @@ public class RegistrarCliente extends JPanel implements Action{
                    String c=txtCI.getText();
                    String cse=quitarEspacios(c);
                 
-                   String d=txtDireccion.getText();
+                   String d=txtPais.getText();
                    String dse=quitarEspacios(d);
+                   
+                   String cu=txtCuenta.getText();
+                   String cue=quitarEspacios(cu);
                
                    String t=txtTelefono.getText();
                    String tse=quitarEspacios(t);
-                
-                   String cel=txtCelular.getText();
-                   String celse=quitarEspacios(cel);
-                
+
                    String co=txtCorreo.getText();
                    String cose=quitarEspacios(co);
                 
@@ -187,15 +181,15 @@ public class RegistrarCliente extends JPanel implements Action{
              //*****************************************************************************************//
              //      Hacemos un llamado al metodo consulta que nos permite insertar un nuevo cliente
              //*****************************************************************************************//
-             cn.consulta("insert into cliente(NOMBRE_CLIENTE,CI_CLIENTE,DIRECCION_CLIENTE,TELEFONO_CLIENTE,CELULAR_CLIENTE,CORREO_CLIENTE) values('"+nse.trim()+"','"+cse.trim()+"','"+dse.trim()+"','"+tse.trim()+"','"+celse.trim()+"','"+cose.trim()+"')");
+             cn.consulta("insert into proveedor(NOMBREP,CIP,PAISP,CUENTAP,TELEFONOP,CORREOP) values('"+nse.trim()+"','"+cse.trim()+"','"+dse.trim()+"','"+cue.trim()+"','"+tse.trim()+"','"+cose.trim()+"')");
              //*********************************************************************************************//
              //      Si los datos son guardados de forma correcta, los campos del formulario se limpiarán
              //*********************************************************************************************//
              txtNombre.setText("");
              txtCI.setText("");
-             txtDireccion.setText("");
+             txtPais.setText("");
+             txtCuenta.setText("");
              txtTelefono.setText("");
-             txtCelular.setText("");
              txtCorreo.setText("");
              JOptionPane.showMessageDialog(null, "Se guardó correctamente");
              cn.desconectar();
@@ -224,14 +218,24 @@ public class RegistrarCliente extends JPanel implements Action{
         txtCI.addKeyListener(new KeyAdapter() {
                 public void keyPressed(KeyEvent e){
                     if(KeyEvent.VK_ENTER==e.getKeyCode()){
-                        btnRegistrar.doClick();
+                       btnRegistrar.doClick();
                     }   
                 }
         });
         //****************************************************************************//
         //          El campo se encuentra a la escucha de la tecla enter
         //****************************************************************************//
-        txtDireccion.addKeyListener(new KeyAdapter() {
+        txtPais.addKeyListener(new KeyAdapter() {
+                public void keyPressed(KeyEvent e){
+                    if(KeyEvent.VK_ENTER==e.getKeyCode()){
+                        btnRegistrar.doClick();
+                    }   
+                }
+        });
+                //****************************************************************************//
+        //          El campo se encuentra a la escucha de la tecla enter
+        //****************************************************************************//
+        txtCuenta.addKeyListener(new KeyAdapter() {
                 public void keyPressed(KeyEvent e){
                     if(KeyEvent.VK_ENTER==e.getKeyCode()){
                         btnRegistrar.doClick();
@@ -242,16 +246,6 @@ public class RegistrarCliente extends JPanel implements Action{
         //          El campo se encuentra a la escucha de la tecla enter
         //****************************************************************************//
         txtTelefono.addKeyListener(new KeyAdapter() {
-                public void keyPressed(KeyEvent e){
-                    if(KeyEvent.VK_ENTER==e.getKeyCode()){
-                        btnRegistrar.doClick();
-                    }   
-                }
-        });
-        //****************************************************************************//
-        //          El campo se encuentra a la escucha de la tecla enter
-        //****************************************************************************//
-        txtCelular.addKeyListener(new KeyAdapter() {
                 public void keyPressed(KeyEvent e){
                     if(KeyEvent.VK_ENTER==e.getKeyCode()){
                         btnRegistrar.doClick();
@@ -294,13 +288,12 @@ public class RegistrarCliente extends JPanel implements Action{
         //*******************************************************//
         //      Insertamos el boton registrar a nuestra lamina
         //*******************************************************//
-        jpPanel.add(btnRegistrar);
+        jpLamina.add(btnRegistrar);
         //*******************************************************//
         //      Insertamos el panel dentro de nuestro marco
         //*******************************************************//
-        jfMarco.add(jpPanel);     
+        jfMarco.add(jpLamina);     
         }
-
     //*******************************************************//
     //      Metodo para validar nombre
     //*******************************************************//

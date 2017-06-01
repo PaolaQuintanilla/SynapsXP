@@ -16,7 +16,7 @@ public class MarcoPrincipal extends JFrame{
     
     public MarcoPrincipal(String titulo){
         super(titulo);
-        ImageIcon icono=new ImageIcon("img/mundo.jpg");
+        ImageIcon icono=new ImageIcon("img/iconoCAT.jpg");
         Image img=icono.getImage();
         setIconImage(img);
         PanelMenu pm=new PanelMenu();
@@ -29,86 +29,104 @@ public class MarcoPrincipal extends JFrame{
     }
 }    
     class PanelMenu extends JPanel{
-        JMenuBar BarraMenu;
-        JMenu MenuCliente;
-        JMenu MenuProveedor;
-        JMenu MenuConfiguraciones;
-        JMenu MenuPedido;
-        JMenuItem ModificarClave;
-        JMenuItem RegistrarCliente;
-        JMenuItem ModificarCliente;
-        JMenuItem RegistrarProveedor;
-        JMenuItem ModificarProveedor;
-        JMenuItem MostrarPedidos;
+        //**************************************//
+        //      Declaramos los atributos
+        //**************************************//
+        JMenuBar jmbBarraMenu;
+        JMenu jmMenuCliente;
+        JMenu jmMenuProveedor;
+        JMenu jmMenuConfiguraciones;
+        JMenu jmMenuPedido;
+        JMenuItem jmiModificarClave;
+        JMenuItem jmiRegistrarCliente;
+        JMenuItem jmiModificarCliente;
+        JMenuItem jmiRegistrarProveedor;
+        JMenuItem jmiModificarProveedor;
+        JMenuItem jmiMostrarPedidos;
         public PanelMenu(){
             //***************************************************//
             //      Instanciamos el barra del menu
             //***************************************************//
-            BarraMenu=new JMenuBar(); 
-            BarraMenu.setBorderPainted(true); 
+            jmbBarraMenu=new JMenuBar(); 
+            jmbBarraMenu.setBorderPainted(true); 
             //***************************************************//
             //      Instanciamos los Menús
             //***************************************************//
-            MenuCliente=new JMenu("Cliente");
-            MenuProveedor=new JMenu("Proveedor");
-            MenuConfiguraciones=new JMenu("Configuraciones");
-            MenuPedido=new JMenu("Pedido");
+            jmMenuCliente=new JMenu("Cliente");
+            jmMenuProveedor=new JMenu("Proveedor");
+            jmMenuConfiguraciones=new JMenu("Configuraciones");
+            jmMenuPedido=new JMenu("Pedido");
             //***************************************************//
             //      Instanciamos los MenuItems
             //***************************************************//
-            ModificarClave=new JMenuItem("Cambiar Configuracion");
-            RegistrarCliente=new JMenuItem("Registrar Cliente");
-            ModificarCliente=new JMenuItem("Modificar Cliente");
-            RegistrarProveedor=new JMenuItem("Registrar Proveedor");
-            ModificarProveedor=new JMenuItem("Modificar Proveedor");
-            MostrarPedidos=new JMenuItem("*Daniel ponle el nombre que quieras*");
+            jmiModificarClave=new JMenuItem("Cambiar Configuración");
+            jmiRegistrarCliente=new JMenuItem("Registrar Cliente");
+            jmiModificarCliente=new JMenuItem("Modificar Cliente");
+            jmiRegistrarProveedor=new JMenuItem("Registrar Proveedor");
+            jmiModificarProveedor=new JMenuItem("Modificar Proveedor");
+            jmiMostrarPedidos=new JMenuItem("*Daniel ponle el nombre que quieras*");
             //*********************************************************//
             //      Insertamos los MenuItems al menú Configuraciones            
             //*********************************************************//
-            MenuConfiguraciones.add(ModificarClave);
+            jmMenuConfiguraciones.add(jmiModificarClave);
             //*********************************************************//
             //      Insetamos los MenuItems al menú Cliente           
             //*********************************************************//            
-            MenuCliente.add(RegistrarCliente);
-            MenuCliente.add(ModificarCliente);
+            jmMenuCliente.add(jmiRegistrarCliente);
+            jmMenuCliente.add(jmiModificarCliente);
             //*********************************************************//
             //      Insetamos los MenuItems al menú Proveedor            
             //*********************************************************//            
-            MenuProveedor.add(RegistrarProveedor);
-            MenuProveedor.add(ModificarProveedor);
+            jmMenuProveedor.add(jmiRegistrarProveedor);
+            jmMenuProveedor.add(jmiModificarProveedor);
             //*********************************************************//
             //      Insetamos los MenuItems al menú Pedido           
             //*********************************************************//           
-            MenuPedido.add(MostrarPedidos);
+            jmMenuPedido.add(jmiMostrarPedidos);
             //*********************************************************//
             //      Insetamos iconos a los MenuItems          
             //*********************************************************//              
-            RegistrarCliente.setIcon(new ImageIcon("img/iconoPersona.jpg"));
-            ModificarCliente.setIcon(new ImageIcon("img/iconoModificar.jpg"));
-            RegistrarProveedor.setIcon(new ImageIcon("img/iconoProveedor.jpg"));
-            ModificarProveedor.setIcon(new ImageIcon("img/iconoModificarProveedor.jpg"));
-            ModificarClave.setIcon(new ImageIcon("img/iconoConfiguracion.jpg"));
-            MostrarPedidos.setIcon(new ImageIcon("img/iconoProducto.jpg"));
+            jmiRegistrarCliente.setIcon(new ImageIcon("img/iconoPersona.jpg"));
+            jmiModificarCliente.setIcon(new ImageIcon("img/iconoModificar.jpg"));
+            jmiRegistrarProveedor.setIcon(new ImageIcon("img/iconoProveedor.jpg"));
+            jmiModificarProveedor.setIcon(new ImageIcon("img/iconoModificarProveedor.jpg"));
+            jmiModificarClave.setIcon(new ImageIcon("img/iconoConfiguracion.jpg"));
+            jmiMostrarPedidos.setIcon(new ImageIcon("img/iconoProducto.jpg"));
             //****************************************************//
             //      Muestra el forumlario de registror cliente     
             //****************************************************//
             RegistrarCliente rp=new RegistrarCliente();
-            RegistrarCliente.addActionListener(rp); 
+            jmiRegistrarCliente.addActionListener(rp); 
             //****************************************************//
             //      Modifica datos del cliente     
             //****************************************************//
-            BuscarCliente bc=new BuscarCliente();
-            ModificarCliente.addActionListener(bc);
+            ModificarCliente bc=new ModificarCliente();
+            jmiModificarCliente.addActionListener(bc);
             //****************************************************//
-            //     Insertamos los menús a la barra de menús 
+            //      Muestra el formulario de registro proveedor
             //****************************************************//
-            BarraMenu.add(MenuPedido);
-            BarraMenu.add(MenuProveedor);
-            BarraMenu.add(MenuCliente);
-            BarraMenu.add(MenuConfiguraciones);
+            RegistrarProveedor rpv=new RegistrarProveedor();
+            jmiRegistrarProveedor.addActionListener(rpv);
+            //****************************************************//
+            //      Modifica datos del cliente     
+            //****************************************************//
+            ModificarProveedor mp=new ModificarProveedor();
+            jmiModificarProveedor.addActionListener(mp);
+            //****************************************************//
+            //      Cambiar configuracion     
+            //****************************************************//
+            CambiarConfiguracion cfg=new CambiarConfiguracion();
+            jmiModificarClave.addActionListener(cfg);
+            //****************************************************//
+            //      Insertamos los menús a la barra de menús 
+            //****************************************************//
+            jmbBarraMenu.add(jmMenuPedido);
+            jmbBarraMenu.add(jmMenuProveedor);
+            jmbBarraMenu.add(jmMenuCliente);
+            jmbBarraMenu.add(jmMenuConfiguraciones);
             FlowLayout Superior=new FlowLayout(FlowLayout.LEFT);  
             setLayout(Superior);
-            add(BarraMenu);
+            add(jmbBarraMenu);
         }
         
 }

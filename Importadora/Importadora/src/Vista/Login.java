@@ -29,11 +29,14 @@ import javax.swing.JPasswordField;
 
 public class Login extends JFrame{
     public Login(){
+        //***********************************************//
+        //      Creamos el frame para el login
+        //***********************************************//
         setSize(400, 500);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setUndecorated(true);
         setLocationRelativeTo(null);
-        ImageIcon icono=new ImageIcon("img/linux.jpg");
+        ImageIcon icono=new ImageIcon("img/iconoCAT.jpg");
         Image img=icono.getImage();
         setIconImage(img);
         FondoLogin FondoDePantalla=new FondoLogin();
@@ -43,31 +46,34 @@ public class Login extends JFrame{
         setVisible(false);
     }
     private class FondoLogin extends JPanel{
-        private JTextField campoNombre;
-        private JPasswordField campoClave;
-        private JLabel etiquetaNombre,etiquetaClave;
-        private JButton iniciarSesion,salir;
+        //*******************************************************************//
+        //      Declaramos los atributos
+        //*******************************************************************//
+        private JTextField txtNombre;
+        private JPasswordField txtClave;
+        private JLabel lblNombre,lblClave;
+        private JButton btnIniciarSesion,btnSalir;
         private Image imagenFondo;
         
         public FondoLogin(){
             //***************************************************************//
             //     Instanceamos los componentes
             //***************************************************************//
-            campoNombre=new JTextField(20);
-            campoClave=new JPasswordField(20);
-            etiquetaNombre=new JLabel("Nombre");
-            etiquetaClave=new JLabel("Contraseña");
-            salir=new JButton("Salir");
-            iniciarSesion=new JButton("Iniciar Sesión");
+            txtNombre=new JTextField(20);
+            txtClave=new JPasswordField(20);
+            lblNombre=new JLabel("Nombre");
+            lblClave=new JLabel("Contraseña");
+            btnSalir=new JButton("Salir");
+            btnIniciarSesion=new JButton("Iniciar Sesión");
             //*****************************************************************//
             //     Establecemos el tipo de fuente, estilo y tamaño de letra
             //*****************************************************************//
-            etiquetaNombre.setFont(new Font("Cambria", 1, 18));
-            etiquetaClave.setFont(new Font("Cambria", 1, 18));
-            campoNombre.setFont(new Font("Cambria", 1, 18));
-            campoClave.setFont(new Font("Cambria", 1, 18));
-            iniciarSesion.setFont(new Font("Cambria", 1, 18));
-            salir.setFont(new Font("Cambria", 1, 18));
+            lblNombre.setFont(new Font("Cambria", 1, 18));
+            lblClave.setFont(new Font("Cambria", 1, 18));
+            txtNombre.setFont(new Font("Cambria", 1, 18));
+            txtClave.setFont(new Font("Cambria", 1, 18));
+            btnIniciarSesion.setFont(new Font("Cambria", 1, 18));
+            btnSalir.setFont(new Font("Cambria", 1, 18));
             //**************************************//
             //     Anulamos el Layout por defecto
             //**************************************//
@@ -75,33 +81,33 @@ public class Login extends JFrame{
             //**************************************************//
             //     Estalecemos la posición de los componentes
             //**************************************************//
-            salir.setBounds(250, 20, 120, 30);
-            etiquetaNombre.setBounds(50, 330, 100, 30);
-            campoNombre.setBounds(170, 330, 200, 30);
-            etiquetaClave.setBounds(50, 380, 100, 30);
-            campoClave.setBounds(170, 380, 200, 30);
-            iniciarSesion.setBounds(50, 430, 320, 30);
+            btnSalir.setBounds(250, 20, 120, 30);
+            lblNombre.setBounds(50, 330, 100, 30);
+            txtNombre.setBounds(170, 330, 200, 30);
+            lblClave.setBounds(50, 380, 100, 30);
+            txtClave.setBounds(170, 380, 200, 30);
+            btnIniciarSesion.setBounds(50, 430, 320, 30);
             //**************************//
             //     Establecemos Color   
             //**************************//
-            campoNombre.setBackground(new Color(0, 0, 51));
-            campoNombre.setForeground(new Color(255, 255, 255));
-            campoClave.setBackground(new Color(0, 0, 51));
-            campoClave.setForeground(new Color(255, 255, 255));
-            etiquetaNombre.setForeground(new Color(255, 255, 255));
-            etiquetaClave.setForeground(new Color(255, 255, 255));
-            iniciarSesion.setBackground(new Color(0, 0, 51));
-            salir.setBackground(new Color(0, 0, 51));
-            iniciarSesion.setForeground(new Color(255, 255, 255));
-            salir.setForeground(new Color(255, 255, 255));
+            txtNombre.setBackground(new Color(0, 0, 51));
+            txtNombre.setForeground(new Color(255, 255, 255));
+            txtClave.setBackground(new Color(0, 0, 51));
+            txtClave.setForeground(new Color(255, 255, 255));
+            lblNombre.setForeground(new Color(255, 255, 255));
+            lblClave.setForeground(new Color(255, 255, 255));
+            btnIniciarSesion.setBackground(new Color(0, 0, 51));
+            btnSalir.setBackground(new Color(0, 0, 51));
+            btnIniciarSesion.setForeground(new Color(255, 255, 255));
+            btnSalir.setForeground(new Color(255, 255, 255));
             //*********************************************************************************//
             //     Quitamos el foco al botón salir y este foco pasa al siguiente componente
             //*********************************************************************************//
-            salir.setFocusable(false);
+            btnSalir.setFocusable(false);
             //*************************************************//
             //     Evento que permite salir de la aplicación
             //*************************************************//
-            salir.addActionListener(new ActionListener() {
+            btnSalir.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent ae) {
                     System.exit(0);
@@ -110,48 +116,48 @@ public class Login extends JFrame{
             //**************************************************************//
             //     Evento que permite escuchar si el usuario presiona enter
             //**************************************************************//
-            campoNombre.addKeyListener(new KeyAdapter() {
+            txtNombre.addKeyListener(new KeyAdapter() {
                 public void keyPressed(KeyEvent e){
                     if(KeyEvent.VK_ENTER==e.getKeyCode()){
-                        iniciarSesion.doClick();
+                        btnIniciarSesion.doClick();
                     }   
                 }
             });
             //**************************************************************//
             //     Evento que permite escuchar si el usuario presiona enter
             //**************************************************************//            
-            campoClave.addKeyListener(new KeyAdapter() {
+            txtClave.addKeyListener(new KeyAdapter() {
                 public void keyPressed(KeyEvent e){
                     if(KeyEvent.VK_ENTER==e.getKeyCode()){
-                        iniciarSesion.doClick();
+                        btnIniciarSesion.doClick();
                     }   
                 }
             });
             //**************************************************************//
             //     Evento que permite escuchar si el usuario presiona enter
             //**************************************************************//            
-            iniciarSesion.addKeyListener(new KeyAdapter() {
+            btnIniciarSesion.addKeyListener(new KeyAdapter() {
                 public void keyPressed(KeyEvent e){
                     if(KeyEvent.VK_ENTER==e.getKeyCode()){
-                        iniciarSesion.doClick();
+                        btnIniciarSesion.doClick();
                     }   
                 }
             });
             //*****************************************************************//
             //     Evento que permite validar nombre de usuario y contraseña
             //*****************************************************************//              
-            iniciarSesion.addActionListener(new ActionListener() {
+            btnIniciarSesion.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                
                 ConectorBD log=new ConectorBD();
                 log.conectar();
-                ResultSet consulta=log.seleccionar("select passwordUsuario from usuario where nombreUsuario='admin'");
+                ResultSet consulta=log.seleccionar("select CONTRASENIA from usuario where NOMBRE_USUARIO='admin'");
                 try {
                     while(consulta.next()){
-                        String passwd=consulta.getString("passwordUsuario");
-                        String campo=new String(campoClave.getPassword());
-                        if(passwd.equals(campo)&&campoNombre.getText().equals("admin")){
+                        String passwd=consulta.getString("CONTRASENIA");
+                        String campo=new String(txtClave.getPassword());
+                        if(passwd.equals(campo)&&txtNombre.getText().equals("admin")){
                             MarcoPrincipal mp=new MarcoPrincipal("Importadora Synaps");              
                             mp.setExtendedState(JFrame.MAXIMIZED_BOTH);
                             mp.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -169,12 +175,12 @@ public class Login extends JFrame{
             //***************************************************//
             //     Insertamos los componentes a nuestra lamina
             //***************************************************//           
-            add(salir);
-            add(etiquetaNombre);
-            add(etiquetaClave);
-            add(campoNombre);
-            add(campoClave);
-            add(iniciarSesion);            
+            add(btnSalir);
+            add(lblNombre);
+            add(lblClave);
+            add(txtNombre);
+            add(txtClave);
+            add(btnIniciarSesion);            
         }
         //***********************************************************//
         //      Metodo que nos permite insertar la imagen de fondo
