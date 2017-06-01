@@ -37,12 +37,14 @@ public class MarcoPrincipal extends JFrame{
         JMenu jmMenuProveedor;
         JMenu jmMenuConfiguraciones;
         JMenu jmMenuPedido;
+        JMenu jmMenuCatalogo;
         JMenuItem jmiModificarClave;
         JMenuItem jmiRegistrarCliente;
         JMenuItem jmiModificarCliente;
         JMenuItem jmiRegistrarProveedor;
         JMenuItem jmiModificarProveedor;
         JMenuItem jmiMostrarPedidos;
+        JMenuItem jmiMostrarCatalogo;
         public PanelMenu(){
             //***************************************************//
             //      Instanciamos el barra del menu
@@ -56,6 +58,7 @@ public class MarcoPrincipal extends JFrame{
             jmMenuProveedor=new JMenu("Proveedor");
             jmMenuConfiguraciones=new JMenu("Configuraciones");
             jmMenuPedido=new JMenu("Pedido");
+            jmMenuCatalogo=new JMenu("Producto");
             //***************************************************//
             //      Instanciamos los MenuItems
             //***************************************************//
@@ -65,26 +68,31 @@ public class MarcoPrincipal extends JFrame{
             jmiRegistrarProveedor=new JMenuItem("Registrar Proveedor");
             jmiModificarProveedor=new JMenuItem("Modificar Proveedor");
             jmiMostrarPedidos=new JMenuItem("*Daniel ponle el nombre que quieras*");
+            jmiMostrarCatalogo=new JMenuItem("Catalogo");
             //*********************************************************//
             //      Insertamos los MenuItems al menú Configuraciones            
             //*********************************************************//
             jmMenuConfiguraciones.add(jmiModificarClave);
             //*********************************************************//
-            //      Insetamos los MenuItems al menú Cliente           
+            //      Insertamos los MenuItems al menú Cliente           
             //*********************************************************//            
             jmMenuCliente.add(jmiRegistrarCliente);
             jmMenuCliente.add(jmiModificarCliente);
             //*********************************************************//
-            //      Insetamos los MenuItems al menú Proveedor            
+            //      Insertamos los MenuItems al menú Proveedor            
             //*********************************************************//            
             jmMenuProveedor.add(jmiRegistrarProveedor);
             jmMenuProveedor.add(jmiModificarProveedor);
             //*********************************************************//
-            //      Insetamos los MenuItems al menú Pedido           
+            //      Insertamos los MenuItems al menú Pedido           
             //*********************************************************//           
             jmMenuPedido.add(jmiMostrarPedidos);
             //*********************************************************//
-            //      Insetamos iconos a los MenuItems          
+            //      Insertamos los MenuItems al menú Producto           
+            //*********************************************************//
+            jmMenuCatalogo.add(jmiMostrarCatalogo);
+            //*********************************************************//
+            //      Insertamos iconos a los MenuItems          
             //*********************************************************//              
             jmiRegistrarCliente.setIcon(new ImageIcon("img/iconoPersona.jpg"));
             jmiModificarCliente.setIcon(new ImageIcon("img/iconoModificar.jpg"));
@@ -92,6 +100,7 @@ public class MarcoPrincipal extends JFrame{
             jmiModificarProveedor.setIcon(new ImageIcon("img/iconoModificarProveedor.jpg"));
             jmiModificarClave.setIcon(new ImageIcon("img/iconoConfiguracion.jpg"));
             jmiMostrarPedidos.setIcon(new ImageIcon("img/iconoProducto.jpg"));
+            jmiMostrarCatalogo.setIcon(new ImageIcon("img/iconoCatalogo.jpg"));
             //****************************************************//
             //      Muestra el forumlario de registror cliente     
             //****************************************************//
@@ -118,15 +127,20 @@ public class MarcoPrincipal extends JFrame{
             CambiarConfiguracion cfg=new CambiarConfiguracion();
             jmiModificarClave.addActionListener(cfg);
             //****************************************************//
+            //      Muestra el catalogo de productos      
+            //****************************************************//
+            Catalogo ca = new Catalogo();
+            jmiMostrarCatalogo.addActionListener(ca);
+            //****************************************************//
             //      Insertamos los menús a la barra de menús 
             //****************************************************//
             jmbBarraMenu.add(jmMenuPedido);
             jmbBarraMenu.add(jmMenuProveedor);
             jmbBarraMenu.add(jmMenuCliente);
             jmbBarraMenu.add(jmMenuConfiguraciones);
+            jmbBarraMenu.add(jmMenuCatalogo);
             FlowLayout Superior=new FlowLayout(FlowLayout.LEFT);  
             setLayout(Superior);
             add(jmbBarraMenu);
-        }
-        
+        }        
 }

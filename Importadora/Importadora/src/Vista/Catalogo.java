@@ -7,6 +7,7 @@ package Vista;
 
 import java.awt.Font;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -28,10 +29,27 @@ import javax.swing.table.DefaultTableModel;
  * @author Andrea
  */
 public class Catalogo extends JFrame implements Action {
-   
 
     public Catalogo() {
 
+    }
+
+    @Override
+    public Object getValue(String key) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void putValue(String key, Object value) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent ev) {
+       
+        //****************************************************//
+        //      Definimos los parametros de la ventana catalogo
+        //****************************************************//
         setSize(1100, 700);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -40,12 +58,18 @@ public class Catalogo extends JFrame implements Action {
 
         JPanel panel = new JPanel();
         panel.setLayout(null);
-
+        
+        //****************************************************//
+        //      Definimos el titulo 
+        //****************************************************//
         JLabel titulo = new JLabel("Productos en Almacen");
         titulo.setFont((new Font("bodoni mt black", 0, 20)));
         titulo.setBounds(500, 20, 300, 20);
         panel.add(titulo);
-
+        
+        //****************************************************//
+        //      Las caracteristicas respecto al producto
+        //****************************************************//
         JLabel id = new JLabel("ID producto");
         id.setBounds(100, 60, 100, 20);
         panel.add(id);
@@ -61,15 +85,20 @@ public class Catalogo extends JFrame implements Action {
 //        JLabel mod = new JLabel("Modelo");
 //        mod.setBounds(500, 60, 100, 20);
 //        panel.add(mod);
-///////////////////////////////////////////////////////////////////////////////////////
-//Se debe acoplar al resto de interfaces al oprimir aceptar        
+
+        //****************************************************//
+        //      Nos permite salir de la ventana Catalogo 
+        //****************************************************//        
         JButton salir = new JButton();
         salir.setText("Aceptar");
         salir.setBounds(900, 600, 100, 50);
-
+         salir.addActionListener(new ActionListener(){public void actionPerformed(java.awt.event.ActionEvent ae2){
+            dispose();
+        }});
         panel.add(salir);
-        ////////////////////////////////////////////////////////////////////////////////////////////////
-        //Generacion de tabla y extraccion de datos de la base de datos
+        //****************************************************//
+        //      Generacion de Tabla y extraccion de datos de la BD 
+        //****************************************************//
         JTable tabla = new JTable();
         tabla.setModel(new javax.swing.table.DefaultTableModel(
                 new Object[][]{}, new String[]{"IdProducto", "IdSubCategoria", "NombreProducto"/*, "Marca", "Modelo" para bd daniel*/}
@@ -99,27 +128,11 @@ public class Catalogo extends JFrame implements Action {
             }
         } catch (ClassNotFoundException | SQLException e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
-        }
-
-        ///////////////////////////////////////////////////////////////////////////////////////////// 
+        } 
         panel.add(tabla);
         tabla.setBounds(100, 90, 500, 550);
         add(panel);
+
     }
 
-    @Override
-    public Object getValue(String key) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void putValue(String key, Object value) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
 }
