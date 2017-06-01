@@ -137,8 +137,8 @@ public class MarcoPrincipal extends JFrame{
             jmbBarraMenu.add(jmMenuPedido);
             jmbBarraMenu.add(jmMenuProveedor);
             jmbBarraMenu.add(jmMenuCliente);
-            jmbBarraMenu.add(jmMenuConfiguraciones);
             jmbBarraMenu.add(jmMenuCatalogo);
+            jmbBarraMenu.add(jmMenuConfiguraciones);
             FlowLayout Superior=new FlowLayout(FlowLayout.LEFT);  
             setLayout(Superior);
             add(jmbBarraMenu);
