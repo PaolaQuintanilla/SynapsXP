@@ -341,7 +341,7 @@ public class ModificarProveedor extends JPanel implements Action{
              //      Nos conectamos con la Base de Datos
              //*******************************************************//
              cn.conectar();
-             cn.consulta("update proveedor set NOMBREP='"+nse.trim()+"', CIP='"+cse.trim()+"', PAISP='"+dse.trim()+"', TELEFONOP='"+tse.trim()+"', CELULARP='"+celse.trim()+"', CORREOP='"+cose.trim()+"' where CI_PROVEEDOR='"+txtCIModificado.getText()+"'");
+             cn.consulta("update proveedor set NOMBREP='"+nse.trim()+"', CIP='"+cse.trim()+"', PAISP='"+dse.trim()+"', CUENTAP='"+cue.trim()+"', TELEFONOP='"+tse.trim()+"', CORREOP='"+cose.trim()+"' where CIP='"+txtCIModificado.getText()+"'");
              //*********************************************************************************************//
              //      Si los datos son guardados de forma correcta, los campos del formulario se limpiarán
              //*********************************************************************************************//             
