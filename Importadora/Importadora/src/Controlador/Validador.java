@@ -18,8 +18,7 @@ public class Validador {
                 if(nom.charAt(i)==caracteres.charAt(j)){            
                         x.setText("");
                         JOptionPane.showMessageDialog(null, "Nombre no es valido");
-                        return true;
-                    
+                        return true;                
                 }
            }
            
@@ -39,7 +38,6 @@ public class Validador {
                         x.setText("");
                         JOptionPane.showMessageDialog(null, "El nombre de la dirección es invalido");
                         return true;
-                    
                 }
            }
         }
@@ -48,10 +46,10 @@ public class Validador {
     //*******************************************************//
     //     Metodo para quitar espacios
     //*******************************************************//
-    public String quitarEspacios(String w){
+    public String quitarEspacios(String p){
         String se=" ";
         int contador=0;
-        String sTexto=w; 
+        String sTexto=p; 
         for (int x=0; x < sTexto.length(); x++) {    
             if (sTexto.charAt(x)!=' '){
                 se+=sTexto.charAt(x);
@@ -66,7 +64,7 @@ public class Validador {
         return se;
      }
     //*******************************************************//
-    //      metodo para validar correo
+    //      Metodo para validar correo
     //*******************************************************//
     public boolean validarCorreo(JTextField correo){
         String email=correo.getText();
