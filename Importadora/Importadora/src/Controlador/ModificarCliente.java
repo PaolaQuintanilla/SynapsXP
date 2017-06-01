@@ -1,5 +1,6 @@
-package Vista;
+package Controlador;
 import Modelo.ConectorBD;
+import Vista.RegistrarCliente;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -313,23 +314,23 @@ public class ModificarCliente extends JPanel implements Action{
                 //*******************************************************//
                 ConectorBD cn=new ConectorBD();
                 //*******************************************************//
-                //      Instanciamos la clase Registrar cliente
+                //      Instanciamos la clase Validador
                 //*******************************************************//
-                RegistrarCliente regMod=new RegistrarCliente();
+                Validador valClienteMod=new Validador();
                 //****************************************************************************************//
                 //      Condicional que nos permite saber si los campos de texto se encuentran vacíos
                 //****************************************************************************************//
                 if(!txtNombreModificado.getText().isEmpty()&&!txtCIModificado.getText().isEmpty()&&!txtDireccionModificado.getText().isEmpty()){
-                if(!regMod.validarNombre(txtNombreModificado)&&!regMod.validarDireccion(txtDireccionModificado)&&regMod.validarCorreo(txtCorreoModificado)){
+                if(!valClienteMod.validarNombre(txtNombreModificado)&&!valClienteMod.validarDireccion(txtDireccionModificado)&&valClienteMod.validarCorreo(txtCorreoModificado)){
                    //*************************************************************//
                    //       Llamamos al metodo quitar espacios
                    //*************************************************************//                                
-                   String nse=regMod.quitarEspacios(txtNombreModificado.getText());           
-                   String cse=regMod.quitarEspacios(txtCIModificado.getText());
-                   String dse=regMod.quitarEspacios(txtDireccionModificado.getText());
-                   String tse=regMod.quitarEspacios(txtTelefonoModificado.getText());
-                   String celse=regMod.quitarEspacios(txtCelularModificado.getText());
-                   String cose=regMod.quitarEspacios(txtCorreoModificado.getText());
+                   String nse=valClienteMod.quitarEspacios(txtNombreModificado.getText());           
+                   String cse=valClienteMod.quitarEspacios(txtCIModificado.getText());
+                   String dse=valClienteMod.quitarEspacios(txtDireccionModificado.getText());
+                   String tse=valClienteMod.quitarEspacios(txtTelefonoModificado.getText());
+                   String celse=valClienteMod.quitarEspacios(txtCelularModificado.getText());
+                   String cose=valClienteMod.quitarEspacios(txtCorreoModificado.getText());
                 
             try{
              //*******************************************************//
