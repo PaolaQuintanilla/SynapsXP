@@ -3,22 +3,35 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package vista;
-import modelo.ConexionBD;
+package Vista;
+
 import java.awt.Font;
 import java.awt.event.ActionEvent;
-import javax.swing.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import javax.swing.Action;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author Andrea
  */
 public class Catalogo extends JFrame implements Action {
+   
 
     public Catalogo() {
-        /*
-        **
-        */
+
         setSize(1100, 700);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -33,47 +46,80 @@ public class Catalogo extends JFrame implements Action {
         titulo.setBounds(500, 20, 300, 20);
         panel.add(titulo);
 
-        JLabel nombre = new JLabel("Productos");
-        nombre.setBounds(100, 60, 100, 20);
-        panel.add(nombre);
-        /*
-        **creacion de un Jlist para mostrar los productos
-        */
-        JList productos = new JList();
-        DefaultListModel<String> list = new DefaultListModel<>();
-        /*
-        **Agrega los productos que se encuentran en la base de datos
-        */
-        list.add(0, "Auto");
-        list.add(0, "auto2");
-        list.add(0, "camion");
-        list.add(1, "moto");
-        
-        
-        productos.setModel(list);
-        productos.setSize(150, 80);       
-        panel.add(productos);
+        JLabel id = new JLabel("ID producto");
+        id.setBounds(100, 60, 100, 20);
+        panel.add(id);
+        JLabel sub = new JLabel("Subcategoria");
+        sub.setBounds(280, 60, 100, 20);//sub.setBounds(200, 60, 100, 20);para bd daniel
+        panel.add(sub);
+        JLabel prod = new JLabel("Producto");
+        prod.setBounds(450, 60, 100, 20);//prod.setBounds(300, 60, 100, 20);para bd daniel
+        panel.add(prod);
+//        JLabel mar = new JLabel("Marca");
+//        mar.setBounds(400, 60, 100, 20);
+//        panel.add(mar);
+//        JLabel mod = new JLabel("Modelo");
+//        mod.setBounds(500, 60, 100, 20);
+//        panel.add(mod);
+///////////////////////////////////////////////////////////////////////////////////////
+//Se debe acoplar al resto de interfaces al oprimir aceptar        
+        JButton salir = new JButton();
+        salir.setText("Aceptar");
+        salir.setBounds(900, 600, 100, 50);
 
-        JScrollPane barraDesplazamiento = new JScrollPane(productos);
-        barraDesplazamiento.setBounds(100,100,300,40);
-        panel.add(barraDesplazamiento);
-        
+        panel.add(salir);
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        //Generacion de tabla y extraccion de datos de la base de datos
+        JTable tabla = new JTable();
+        tabla.setModel(new javax.swing.table.DefaultTableModel(
+                new Object[][]{}, new String[]{"IdProducto", "IdSubCategoria", "NombreProducto"/*, "Marca", "Modelo" para bd daniel*/}
+        ));
+        try {
+
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection cn = DriverManager.getConnection("jdbc:mysql://localhost/importadora", "root", "");
+            PreparedStatement ps;
+            ResultSet rs;
+            ResultSetMetaData rsm;
+            DefaultTableModel dtm;
+            ps = cn.prepareStatement("select id_producto,is_sub_cat,producto from producto");//ps = cn.prepareStatement("select id_producto,id_sub_cat,producto,marca,modelo from producto"); para bd daniel
+            rs = ps.executeQuery();
+            rsm = rs.getMetaData();
+            ArrayList<Object[]> data = new ArrayList<>();
+            while (rs.next()) {
+                Object[] rows = new Object[rsm.getColumnCount()];
+                for (int i = 0; i < rows.length; i++) {
+                    rows[i] = rs.getObject(i + 1);
+                }
+                data.add(rows);
+            }
+            dtm = (DefaultTableModel) tabla.getModel();
+            for (int i = 0; i < data.size(); i++) {
+                dtm.addRow(data.get(i));
+            }
+        } catch (ClassNotFoundException | SQLException e) {
+            JOptionPane.showMessageDialog(rootPane, e.getMessage());
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////// 
+        panel.add(tabla);
+        tabla.setBounds(100, 90, 500, 550);
         add(panel);
     }
 
     @Override
-    public Object getValue(String string) {
+    public Object getValue(String key) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void putValue(String string, Object o) {
+    public void putValue(String key, Object value) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void actionPerformed(ActionEvent ae) {
+    public void actionPerformed(ActionEvent e) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
 }
-
