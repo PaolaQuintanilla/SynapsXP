@@ -4,8 +4,6 @@ import Modelo.ConectorBD;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -119,56 +117,6 @@ public class CambiarConfiguracion extends JPanel implements Action{
                        marcoConfiguracion.dispose();
                    }
                });
-               //*************************************************************************//
-               //       El campo contraseña antigua esta a la escucha de la tecla enter
-               //*************************************************************************//
-               txtContraseniaAntigua.addKeyListener(new KeyAdapter() {
-                    public void keyPressed(KeyEvent e){
-                        if(KeyEvent.VK_ENTER==e.getKeyCode()){
-                             btnAceptar.doClick();
-                        }   
-                    }
-                 });
-               //**********************************************************************//
-               //       El campo contraseña nueva1 esta a la escucha de la tecla enter
-               //**********************************************************************//
-               txtContraseniaNueva1.addKeyListener(new KeyAdapter() {
-                    public void keyPressed(KeyEvent e){
-                        if(KeyEvent.VK_ENTER==e.getKeyCode()){
-                             btnAceptar.doClick();
-                        }   
-                    }
-                 });
-               //**********************************************************************//
-               //      El campo contraseña nueva2 esta a la escucha de la tecla enter  
-               //**********************************************************************//
-               txtContraseniaNueva2.addKeyListener(new KeyAdapter() {
-                    public void keyPressed(KeyEvent e){
-                        if(KeyEvent.VK_ENTER==e.getKeyCode()){
-                             btnAceptar.doClick();
-                        }   
-                    }
-                 });
-               //**********************************************************************//
-               //       Botón cancelar esta a la escucha de la tecla enter
-               //**********************************************************************//
-               btnCancelar.addKeyListener(new KeyAdapter() {
-                    public void keyPressed(KeyEvent e){
-                        if(KeyEvent.VK_ENTER==e.getKeyCode()){
-                        marcoConfiguracion.dispose();
-                        }   
-                    }
-                });
-               //**********************************************************************//
-               //       Botón aceptar esta a la escucha de la tecla enter
-               //**********************************************************************//
-               btnAceptar.addKeyListener(new KeyAdapter() {
-                    public void keyPressed(KeyEvent e){
-                        if(KeyEvent.VK_ENTER==e.getKeyCode()){
-                             btnAceptar.doClick();
-                        }   
-                    }
-                 });
                //********************************************************************************//
                //           Evento que nos permite cambiar de contraseña
                //********************************************************************************//
@@ -202,6 +150,7 @@ public class CambiarConfiguracion extends JPanel implements Action{
                                     JOptionPane.showMessageDialog(null, "Ocurrio un error en la conexión con la BD");
                                     }            
                    }
-               });              
+               });
+               
     }
 }
