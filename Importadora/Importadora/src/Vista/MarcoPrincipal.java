@@ -48,7 +48,7 @@ public class MarcoPrincipal extends JFrame{
     JTextField txtCi = new JTextField();
     JTextField txtCodProd = new JTextField();
     JTextField txtCantidad = new JTextField();
-    JTextField txtCostoTotal = new JTextField();
+    JTextField txtCostoTotal = new JTextField("0");
     JTextField txtFechaLlegada = new JTextField();
     JButton btnBuscar = new JButton("Buscar");
     JButton btnAgregar = new JButton("Agregar");
@@ -80,11 +80,11 @@ public class MarcoPrincipal extends JFrame{
     private void inicializarComponentes(){
         pnlPrincipal.setLayout(null);
         pnlPrincipal.setBounds(20, 0, 500, 500);
-        pnlPrincipal.setBackground(Color.ORANGE);
+        pnlPrincipal.setBackground(new Color(242, 242, 242));
         this.add(pnlPrincipal);
         lblTitulo.setBounds(500, 20, 600, 50);
         lblTitulo.setFont(new Font("Calibri", 1, 40));
-        lblCi.setBounds(50, lblTitulo.getLocation().y + lblTitulo.getHeight() + 10, 80, 30);
+        lblCi.setBounds(250, lblTitulo.getLocation().y + lblTitulo.getHeight() + 10, 80, 30);
         lblCi.setFont(new Font("Calibri", 0, 14));
         txtCi.setBounds(lblCi.getLocation().x + lblCi.getWidth() + 10, lblCi.getLocation().y, 100, lblCi.getHeight());
         btnBuscar.setBounds(txtCi.getLocation().x + txtCi.getWidth() + 10, txtCi.getLocation().y, 100, txtCi.getHeight());
@@ -95,20 +95,27 @@ public class MarcoPrincipal extends JFrame{
                     con.conectar();
                     ResultSet query = con.seleccionar("select nombre_cliente as nombre, id_cliente from cliente where ci_cliente = '" + txtCi.getText() + "'");
                     try {
-                        while(query.next()){
+                        if (query != null && query.next()) {
                             lblCliente.setText("Cliente: " + query.getString("nombre"));
                             id_cliente = query.getInt("id_cliente");
+                        }
+                        else {
+                            JOptionPane.showMessageDialog(rootPane, "El cliente no existe en la base de datos", "Atencion!!", JOptionPane.INFORMATION_MESSAGE);
+                            txtCi.setText("");
+                            txtCi.requestFocus();
                         }
                     } catch (SQLException ex) {
                         Logger.getLogger(MarcoPrincipal.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     con.desconectar();
                 }
+                else
+                    JOptionPane.showMessageDialog(rootPane, "Por favor complete el campo!", "Atencion!!", JOptionPane.WARNING_MESSAGE);
             }
         });
         pnlPedido.setLayout(null);
-        pnlPedido.setBounds(20, lblCi.getLocation().y + lblCi.getHeight() + 20, 1000, 480);
-        pnlPedido.setBackground(Color.cyan);
+        pnlPedido.setBounds(250, lblCi.getLocation().y + lblCi.getHeight() + 20, 1000, 480);
+        pnlPedido.setBackground(new Color(248, 248, 248));
         pnlPedido.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         lblCodProducto.setBounds(30, 30, 120, 30);
         lblCodProducto.setFont(new Font("Calibri", 0, 14));
@@ -125,10 +132,17 @@ public class MarcoPrincipal extends JFrame{
                     con.conectar();
                     ResultSet query = con.seleccionar("select concat(producto, '-', marca, '-', modelo) as producto, precio from producto as p, detalle as dp where dp.id_producto = p.id_producto and id_det = '"+txtCodProd.getText()+"'");
                     try {
-                        while (query.next()) {
-                            String[] row = {txtCodProd.getText(), query.getString("producto"), txtCantidad.getText(), query.getString("precio"), Float.toString(Float.parseFloat(txtCantidad.getText()) * Float.parseFloat(query.getString("precio")))};
+                        if (query != null && query.next()) {
+                            float pp = Float.parseFloat(txtCantidad.getText()) * Float.parseFloat(query.getString("precio"));
+                            txtCostoTotal.setText(Float.toString(Float.parseFloat(txtCostoTotal.getText()) + pp));
+                            String[] row = {txtCodProd.getText(), query.getString("producto"), txtCantidad.getText(), query.getString("precio"), Float.toString(pp)};
                             datos.add(row);
                             MostrarRow(row);
+                        }
+                        else{
+                            JOptionPane.showMessageDialog(rootPane, "El producto no existe en la base de datos!", "Atencion!!", JOptionPane.INFORMATION_MESSAGE);
+                            txtCodProd.setText("");
+                            txtCodProd.requestFocus();
                         }
                         txtCodProd.setText("");
                         txtCantidad.setText("");
@@ -137,6 +151,8 @@ public class MarcoPrincipal extends JFrame{
                     }
                     con.desconectar();
                 }
+                else
+                    JOptionPane.showMessageDialog(rootPane, "Es necesario completar los campos!", "Atencion!!", JOptionPane.INFORMATION_MESSAGE);
             }
         });
         lblCliente.setBounds(700, 30, 300, 30);
@@ -149,7 +165,7 @@ public class MarcoPrincipal extends JFrame{
         txtFechaLlegada.setText(date);
         txtFechaLlegada.setBounds(lblFechaLlegada.getLocation().x + lblFechaLlegada.getWidth() +10, lblFechaLlegada.getLocation().y, 100, 30);
         lblCostoTotal.setBounds(lblFechaLlegada.getLocation().x, lblFechaLlegada.getLocation().y + 50, 80, 30);
-        txtCostoTotal.setBounds(lblCostoTotal.getLocation().x + lblCostoTotal.getWidth() + 10, lblCostoTotal.getLocation().y, 100, 30);
+        txtCostoTotal.setBounds(lblCostoTotal.getLocation().x + lblCostoTotal.getWidth() + 10, lblCostoTotal.getLocation().y, 150, 30);
         lblCodigo_.setBounds(lblCantidad.getLocation().x, lblCantidad.getLocation().y + 50, 50, 30);
         lblProducto_.setBounds(lblCodigo_.getLocation().x+lblCodigo_.getWidth()+10, lblCantidad.getLocation().y + 50, 200, 30);
         lblCantidad_.setBounds(lblProducto_.getLocation().x+lblProducto_.getWidth()+10, lblCantidad.getLocation().y + 50, 80, 30);
@@ -207,28 +223,55 @@ public class MarcoPrincipal extends JFrame{
         lblRow[2].setBounds(lblCantidad_.getLocation().x, lblCantidad_.getLocation().y +espacio*40 , lblCantidad_.getWidth(), lblCantidad_.getHeight());
         lblRow[3].setBounds(lblPU_.getLocation().x, lblPU_.getLocation().y +espacio*40 , lblPU_.getWidth(), lblPU_.getHeight());
         lblRow[4].setBounds(lblPP_.getLocation().x, lblPP_.getLocation().y +espacio*40 , lblPP_.getWidth(), lblPP_.getHeight());
+        lblfila.add(lblRow);
         for (JLabel lbl : lblRow) {
             pnlPedido.add(lbl);
         }
         repaint();
     }
     private void Guardar() throws SQLException{
+        if (id_cliente == 0) {
+            JOptionPane.showMessageDialog(rootPane, "Por favor seleccione un cliente", "Atencion!!", JOptionPane.INFORMATION_MESSAGE);
+            txtCi.requestFocus();
+            return;
+        }
         con.conectar();
         ResultSet res = con.seleccionar("select MAX(id_pedido) as id from pedido");
-        res.next();
-        int id_pedido = res.getInt("id") + 1;
+        int id_pedido;
+        if (res != null && res.next())
+            id_pedido = res.getInt("id") + 1;
+        else
+            id_pedido = 1;
         String query = "insert into pedido values("+id_pedido+", "+id_cliente+", '"+date+"', '"+txtFechaLlegada.getText()+"', "+txtCostoTotal.getText()+", 1);";
         boolean result = con.consulta(query);
         if (result) {
-            for (int i = 0; i < datos.size(); i++) {
-                String[] row = datos.get(i);
+            for (String[] row : datos) {
                 result = con.consulta("insert into detalle_pedido values ("+id_pedido+", "+row[0]+", "+row[2]+", "+row[4]+")");
                 if (!result) {
-                    JOptionPane.showMessageDialog(rootPane, "Error al guardar");
+                    JOptionPane.showMessageDialog(rootPane, "Error al guardar!", "Atencion!!", JOptionPane.INFORMATION_MESSAGE);
                 }
             }
         }
+        else
+            JOptionPane.showMessageDialog(rootPane, "Error al guardar!", "Atencion!!", JOptionPane.INFORMATION_MESSAGE);
         con.desconectar();
+        JOptionPane.showMessageDialog(rootPane, "Se guardo correctamente!!", "Mensaje!!", JOptionPane.INFORMATION_MESSAGE);
+        id_cliente = 0;
+        txtCi.setText("");
+        
+        for (JLabel[] lbl : lblfila) {
+            for (JLabel jLabel : lbl) {
+                pnlPedido.remove(jLabel);
+            }
+        }
+        lblfila.clear();
+        datos.clear();
+        espacio = 0;
+        txtCostoTotal.setText("0");
+        lblCliente.setText("");
+        
+        pnlPedido.repaint();
+        txtCi.requestFocus();
     }
 
 }    
@@ -240,14 +283,12 @@ public class MarcoPrincipal extends JFrame{
         JMenu jmMenuCliente;
         JMenu jmMenuProveedor;
         JMenu jmMenuConfiguraciones;
-        JMenu jmMenuPedido;
         JMenu jmMenuCatalogo;
         JMenuItem jmiModificarClave;
         JMenuItem jmiRegistrarCliente;
         JMenuItem jmiModificarCliente;
         JMenuItem jmiRegistrarProveedor;
         JMenuItem jmiModificarProveedor;
-        JMenuItem jmiMostrarPedidos;
         JMenuItem jmiMostrarCatalogo;
         public PanelMenu(){
             //***************************************************//
@@ -261,7 +302,6 @@ public class MarcoPrincipal extends JFrame{
             jmMenuCliente=new JMenu("Cliente");
             jmMenuProveedor=new JMenu("Proveedor");
             jmMenuConfiguraciones=new JMenu("Configuraciones");
-            jmMenuPedido=new JMenu("Pedido");
             jmMenuCatalogo=new JMenu("Producto");
             //***************************************************//
             //      Instanciamos los MenuItems
@@ -271,7 +311,6 @@ public class MarcoPrincipal extends JFrame{
             jmiModificarCliente=new JMenuItem("Modificar Cliente");
             jmiRegistrarProveedor=new JMenuItem("Registrar Proveedor");
             jmiModificarProveedor=new JMenuItem("Modificar Proveedor");
-            jmiMostrarPedidos=new JMenuItem("*Daniel ponle el nombre que quieras*");
             jmiMostrarCatalogo=new JMenuItem("Catalogo");
             //*********************************************************//
             //      Insertamos los MenuItems al menú Configuraciones            
@@ -288,10 +327,6 @@ public class MarcoPrincipal extends JFrame{
             jmMenuProveedor.add(jmiRegistrarProveedor);
             jmMenuProveedor.add(jmiModificarProveedor);
             //*********************************************************//
-            //      Insertamos los MenuItems al menú Pedido           
-            //*********************************************************//           
-            jmMenuPedido.add(jmiMostrarPedidos);
-            //*********************************************************//
             //      Insertamos los MenuItems al menú Producto           
             //*********************************************************//
             jmMenuCatalogo.add(jmiMostrarCatalogo);
@@ -303,7 +338,6 @@ public class MarcoPrincipal extends JFrame{
             jmiRegistrarProveedor.setIcon(new ImageIcon("img/iconoProveedor.jpg"));
             jmiModificarProveedor.setIcon(new ImageIcon("img/iconoModificarProveedor.jpg"));
             jmiModificarClave.setIcon(new ImageIcon("img/iconoConfiguracion.jpg"));
-            jmiMostrarPedidos.setIcon(new ImageIcon("img/iconoProducto.jpg"));
             jmiMostrarCatalogo.setIcon(new ImageIcon("img/iconoCatalogo.jpg"));
             //****************************************************//
             //      Muestra el forumlario de registror cliente     
@@ -338,7 +372,7 @@ public class MarcoPrincipal extends JFrame{
             //****************************************************//
             //      Insertamos los menús a la barra de menús 
             //****************************************************//
-            jmbBarraMenu.add(jmMenuPedido);
+            
             jmbBarraMenu.add(jmMenuProveedor);
             jmbBarraMenu.add(jmMenuCliente);
             jmbBarraMenu.add(jmMenuCatalogo);
