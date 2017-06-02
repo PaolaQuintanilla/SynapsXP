@@ -106,7 +106,7 @@ public class Catalogo extends JFrame implements Action {
         try {
 
             Class.forName("com.mysql.jdbc.Driver");
-            Connection cn = DriverManager.getConnection("jdbc:mysql://localhost/importadora", "root", "");
+            Connection cn = DriverManager.getConnection("jdbc:mysql://localhost/importadora", "root", "root");
             PreparedStatement ps;
             ResultSet rs;
             ResultSetMetaData rsm;

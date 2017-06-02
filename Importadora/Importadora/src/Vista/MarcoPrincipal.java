@@ -1,5 +1,7 @@
 package Vista;
 
+import Controlador.ModificarProveedor;
+import Controlador.ModificarCliente;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
